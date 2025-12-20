@@ -1,5 +1,13 @@
 # Shopify App Template - React Router
 
+**IMPORTANT**: To get started:
+
+```shell
+cd your-new-app
+
+curl -fsSL https://raw.githubusercontent.com/truonghm/shopify-app-template-react-router/truonghm-template/create-shopify-app.sh | bash -s -- .
+```
+
 This is a template for building a [Shopify app](https://shopify.dev/docs/apps/getting-started) using [React Router](https://reactrouter.com/).  It was forked from the [Shopify Remix app template](https://github.com/Shopify/shopify-app-template-remix) and converted to React Router.
 
 Rather than cloning this repo, follow the [Quick Start steps](https://github.com/Shopify/shopify-app-template-react-router#quick-start).
