@@ -23,8 +23,12 @@ api_version = "2025-10"
   # uri = "/webhooks/products/update"
   # filter = "variants.price:>=10.00"
 
-  # Mandatory compliance topic for public apps only
+  # TODO: Uncomment the GDPR compliance webhooks below if you're building a PUBLIC app (App Store).
+  # These are MANDATORY for public apps. Route handlers are already implemented in app/routes/webhooks.customers.*
+  # For custom/private apps, these are optional but recommended for best practices.
   # See: https://shopify.dev/docs/apps/build/privacy-law-compliance
+
+  # Mandatory compliance topic for public apps only
   # [[webhooks.subscriptions]]
   # uri = "/webhooks/customers/data_request"
   # compliance_topics = ["customers/data_request"]

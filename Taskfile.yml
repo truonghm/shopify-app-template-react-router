@@ -1,0 +1,94 @@
+version: '3'
+
+tasks:
+  help:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - pnpm install
+
+  start:
+    desc: Start all Docker services (PostgreSQL + Redis)
+    cmds:
+      - docker-compose -f docker-compose.dev.yml up -d
+      - |
+        echo "Services started!"
+        echo "PostgreSQL: localhost:5432"
+        echo "Redis: localhost:6379"
+
+  stop:
+    desc: Stop all Docker services
+    cmds:
+      - docker-compose -f docker-compose.dev.yml down
+      - echo "Services stopped!"
+
+  setup:
+    desc: Start services and initialize database
+    deps: [start]
+    cmds:
+      - |
+        echo "Waiting for services to be ready..."
+        sleep 5
+        pnpm run setup
+        echo "Setup complete!"
+
+  dev:
+    desc: Start development server
+    cmds:
+      - shopify app dev
+
+  logs:
+    desc: View Docker service logs
+    cmds:
+      - docker-compose -f docker-compose.dev.yml logs -f
+
+  clean:
+    desc: Stop services and remove volumes
+    cmds:
+      - docker-compose -f docker-compose.dev.yml down -v
+      - echo "Services and volumes removed!"
+
+  reset:
+    desc: Reset database and restart services
+    deps: [stop]
+    cmds:
+      - docker-compose -f docker-compose.dev.yml down -v
+      - docker-compose -f docker-compose.dev.yml up -d
+      - |
+        echo "Waiting for services to be ready..."
+        sleep 5
+        pnpm prisma migrate reset --force
+        echo "Database reset complete!"
+
+  worker:
+    desc: Start email worker
+    cmds:
+      - node --loader tsx app/workers/email.worker.ts
+
+  db:studio:
+    desc: Open Prisma Studio
+    cmds:
+      - pnpm prisma studio
+
+  db:migrate:
+    desc: Run database migrations
+    cmds:
+      - pnpm prisma migrate dev
+
+  db:generate:
+    desc: Generate Prisma client
+    cmds:
+      - pnpm prisma generate
+
+  db:push:
+    desc: Push database schema changes
+    cmds:
+      - pnpm prisma db push
+
+  ci:
+    cmds:
+      - pnpm install && npx tsc --noEmit && pnpm run lint && npx prisma generate && npx prisma validate && pnpm run build
