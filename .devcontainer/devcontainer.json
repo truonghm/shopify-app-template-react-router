@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Shopify App React Router",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1.1.9-22-bookworm",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "22.16.0",
+			"pnpm": "latest"
+		}
+	},
+	"containerEnv": {
+		"PNPM_STORE_PATH": "/var/pnpm-store"
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"naumovs.color-highlight",
+				"oderwat.indent-rainbow",
+				"Anthropic.claude-code",
+				"openai.chatgpt",
+				"ms-azuretools.vscode-containers",
+				"ms-vscode-remote.remote-containers",
+				"GitHub.codespaces",
+				"maattdd.gitless",
+				"kisstkondoros.vscode-gutter-preview",
+				"ms-azuretools.vscode-docker",
+				"christian-kohler.path-intellisense",
+				"albert.TabOut"
+			]
+		}
+	},
+	
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [9000],
+
+	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
+	// More info: https://containers.dev/implementors/json_reference/#port-attributes
+	// "portsAttributes": {
+	// 	"9000": {
+	// 		"label": "Hello Remote World",
+	// 		"onAutoForward": "notify"
+	// 	}
+	// },
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && npm i -g @openai/codex @shopify/cli@latest && curl -fsSL https://claude.ai/install.sh | bash && sudo sh -c \"$(curl -fsSL https://taskfile.dev/install.sh)\" -- -d -b /usr/local/bin && sudo mkdir -p /var/pnpm-store && sudo chown -R node:node /var/pnpm-store && pnpm install"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
