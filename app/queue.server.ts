@@ -59,7 +59,7 @@ export function createQueue<T = any>(name: string, options?: QueueOptions) {
 export function createWorker<T = any>(
   name: string,
   processor: (job: any) => Promise<any>,
-  options?: WorkerOptions,
+  options?: Partial<WorkerOptions>,
 ) {
   return new Worker<T>(name, processor, {
     ...defaultWorkerOptions,

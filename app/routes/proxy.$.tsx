@@ -1,5 +1,4 @@
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router";
-import { json } from "react-router";
 import { authenticate } from "../shopify.server";
 import logger from "../logger.server";
 
@@ -32,7 +31,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     // Example: Return shop information
     if (session) {
-      return json({
+      return Response.json({
         success: true,
         shop: session.shop,
         path: proxyPath,
@@ -41,14 +40,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
 
     // If no session, the request is still valid but from a logged-out user
-    return json({
+    return Response.json({
       success: true,
       path: proxyPath,
       message: "Valid app proxy request (no session)",
     });
   } catch (error) {
     logger.error("App proxy authentication error:", error);
-    return json(
+    return Response.json(
       {
         success: false,
         error: "Invalid proxy request",
@@ -95,7 +94,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     // Example: Handle different actions based on the request
     // You can add your own logic here
 
-    return json({
+    return Response.json({
       success: true,
       shop: session?.shop,
       message: "Proxy action processed successfully",
@@ -103,7 +102,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     });
   } catch (error) {
     logger.error("App proxy action error:", error);
-    return json(
+    return Response.json(
       {
         success: false,
         error: "Failed to process proxy action",

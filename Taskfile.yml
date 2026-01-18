@@ -11,6 +11,11 @@ tasks:
     cmds:
       - pnpm install
 
+  type:
+    desc: Run type checking
+    cmds:
+      - pnpm exec tsc --noEmit
+
   start:
     desc: Start all Docker services (PostgreSQL + Redis)
     cmds:

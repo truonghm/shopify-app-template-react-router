@@ -32,8 +32,8 @@
     "@shopify/app-bridge-react": "^4.2.4",
     "@shopify/shopify-app-react-router": "^1.1.0",
     "@shopify/shopify-app-session-storage-prisma": "^8.0.0",
-    "bullmq": "^5.66.2",
-    "ioredis": "^5.8.2",
+    "bullmq": "^5.66.5",
+    "ioredis": "^5.9.2",
     "isbot": "^5.1.31",
     "prisma": "^6.16.3",
     "react": "^18.3.1",
@@ -46,11 +46,9 @@
     "@shopify/api-codegen-preset": "^1.2.0",
     "@shopify/polaris-types": "^1.0.1",
     "@types/eslint": "^9.6.1",
-    "@types/ioredis": "^5.0.0",
     "@types/node": "^22.18.8",
     "@types/react": "^18.3.25",
     "@types/react-dom": "^18.3.7",
-    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.1",
@@ -72,8 +70,14 @@
   "trustedDependencies": [
     "@shopify/plugin-cloudflare"
   ],
+  "pnpm": {
+    "overrides": {
+      "ioredis": "^5.9.2"
+    }
+  },
   "overrides": {
-    "p-map": "^4.0.0"
+    "p-map": "^4.0.0",
+    "ioredis": "^5.9.2"
   },
   "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6"
 }
