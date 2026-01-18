@@ -1,42 +1,27 @@
-# This file stores configurations for your Shopify app.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-scopes = "write_products"
+client_id = "ee905a19acbbef7c3e1bfe94e0b198d7"
+name = "tes"
+application_url = "https://example.com"
+embedded = true
 
 [webhooks]
-api_version = "2025-10"
+api_version = "2026-01"
 
-  # Handled by: /app/routes/webhooks.app.uninstalled.tsx
   [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
   uri = "/webhooks/app/uninstalled"
-  topics = ["app/uninstalled"]
 
-  # Handled by: /app/routes/webhooks.app.scopes_update.tsx
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
   uri = "/webhooks/app/scopes_update"
 
-  # Webhooks can have filters
-  # Only receive webhooks for product updates with a product price >= 10.00
-  # See: https://shopify.dev/docs/apps/build/webhooks/customize/filters
-  # [[webhooks.subscriptions]]
-  # topics = ["products/update"]
-  # uri = "/webhooks/products/update"
-  # filter = "variants.price:>=10.00"
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
 
-  # TODO: Uncomment the GDPR compliance webhooks below if you're building a PUBLIC app (App Store).
-  # These are MANDATORY for public apps. Route handlers are already implemented in app/routes/webhooks.customers.*
-  # For custom/private apps, these are optional but recommended for best practices.
-  # See: https://shopify.dev/docs/apps/build/privacy-law-compliance
+[auth]
+redirect_urls = [ "https://example.com/api/auth" ]
 
-  # Mandatory compliance topic for public apps only
-  # [[webhooks.subscriptions]]
-  # uri = "/webhooks/customers/data_request"
-  # compliance_topics = ["customers/data_request"]
-
-  # [[webhooks.subscriptions]]
-  # uri = "/webhooks/customers/redact"
-  # compliance_topics = ["customers/redact"]
-
-  # [[webhooks.subscriptions]]
-  # uri = "/webhooks/shop/redact"
-  # compliance_topics = ["shop/redact"]
+[build]
+automatically_update_urls_on_dev = true
