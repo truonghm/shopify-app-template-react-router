@@ -1,6 +1,5 @@
 import type { ActionFunctionArgs } from "react-router";
 import { authenticate } from "../shopify.server";
-import db from "../db.server";
 import logger from "../logger.server";
 
 /**

@@ -1,4 +1,4 @@
-import { Queue, Worker, QueueOptions, WorkerOptions } from "bullmq";
+import { Queue, Worker, QueueOptions, WorkerOptions, Job } from "bullmq";
 import Redis from "ioredis";
 import logger from "./logger.server";
 
@@ -48,7 +48,7 @@ export const defaultWorkerOptions: WorkerOptions = {
 export { connection };
 
 // Helper function to create a queue
-export function createQueue<T = any>(name: string, options?: QueueOptions) {
+export function createQueue<T = unknown>(name: string, options?: QueueOptions) {
   return new Queue<T>(name, {
     ...defaultQueueOptions,
     ...options,
@@ -56,9 +56,9 @@ export function createQueue<T = any>(name: string, options?: QueueOptions) {
 }
 
 // Helper function to create a worker
-export function createWorker<T = any>(
+export function createWorker<T = unknown>(
   name: string,
-  processor: (job: any) => Promise<any>,
+  processor: (job: Job<T>) => Promise<unknown>,
   options?: Partial<WorkerOptions>,
 ) {
   return new Worker<T>(name, processor, {

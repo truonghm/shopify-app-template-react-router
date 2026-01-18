@@ -22,7 +22,7 @@ import logger from "../logger.server";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     // Authenticate the proxy request (includes HMAC validation)
-    const { session, admin } = await authenticate.public.appProxy(request);
+    const { session } = await authenticate.public.appProxy(request);
 
     // Get the path after /proxy/
     const url = new URL(request.url);
@@ -60,11 +60,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
     // Authenticate the proxy request
-    const { session, admin } = await authenticate.public.appProxy(request);
+    const { session } = await authenticate.public.appProxy(request);
 
     // Parse request body based on content type
     const contentLength = request.headers.get("content-length");
-    let body: any = null;
+    let body: unknown = null;
 
     // Only parse body if there's actually content
     if (contentLength && parseInt(contentLength) > 0) {

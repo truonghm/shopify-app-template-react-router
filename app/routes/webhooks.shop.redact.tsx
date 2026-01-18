@@ -16,14 +16,13 @@ import logger from "../logger.server";
  * - shop_domain: The shop domain
  */
 
-interface ShopRedactPayload {
-  shop_id: number;
-  shop_domain: string;
-}
+// interface ShopRedactPayload {
+//   shop_id: number;
+//   shop_domain: string;
+// }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const { shop, payload } = await authenticate.webhook(request);
-  const data = payload as ShopRedactPayload;
+  const { shop } = await authenticate.webhook(request);
 
   logger.info(`Received shop/redact webhook for ${shop}`);
 
